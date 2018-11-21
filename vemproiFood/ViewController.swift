@@ -14,6 +14,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var suggestion: UILabel!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var orderButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
     let locationManager = CLLocationManager()
     let api = API()
     
@@ -34,12 +36,15 @@ class ViewController: UIViewController {
     
     private func setup() {
         
+        shareButton.isEnabled = false
+        orderButton.isEnabled = false
+        
         locationManager.delegate = self
         
-        mapView.delegate = self
         mapView.showsUserLocation = true
+        mapView.camera.altitude = 500
         
-        suggestion.text = "Loading..."
+        suggestion.text = "⭕️"
         
     }
     
@@ -55,30 +60,45 @@ class ViewController: UIViewController {
     }
     
     @IBAction func orderAction(_ sender: Any) {
-        
+        if UIApplication.shared.canOpenURL(URL(string: "ifood://")!) {
+           UIApplication.shared.open(URL(string: "ifood://")!)
+        }
     }
     
     @IBAction func shareAction(_ sender: Any) {
+        let vc = UIActivityViewController(activityItems: ["Pedindo \(suggestion.text). #iFood"], applicationActivities: [])
+        self.present(vc, animated: true, completion: nil)
     }
-    
-}
-
-extension ViewController: MKMapViewDelegate {
     
 }
 
 extension ViewController: CLLocationManagerDelegate {
     
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         locationManager.stopUpdatingLocation()
         
-        api.weather(debug: false) { (weather) in
+        if let userLocation = locations.first {
+            let userCoordinates = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+            mapView.camera.centerCoordinate = userCoordinates
+        }
+        
+        let location = "Campinas,br"
+        
+        api.getWeather(location) { (weather) in
             
-            if let weatherStatus = weather?.list.last?.weather.last?.main {
+            if let weatherStatus = weather?.list.first?.weather.first?.main {
                 
                 self.suggestion.text = self.updateSuggestion(weather: weatherStatus)
                 
+            } else {
+                
+                self.suggestion.text = "🍫"
+                
             }
+            
+            self.shareButton.isEnabled = true
+            self.orderButton.isEnabled = true
             
         }
         

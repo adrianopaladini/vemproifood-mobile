@@ -10,5 +10,5 @@ import Foundation
 
 class Constants {
     static let openWeatherAppId = "a67ef818d8c8e3945f7eee5f541c47e5"
-    static let openWeatherDomain = "http://api.openweathermap.org/data/2.5/"
+    static let openWeatherDomain = "https://api.openweathermap.org/data/2.5/"
 }

@@ -34,8 +34,8 @@ struct Alert {
         return alert
     }
 
-    static func confirm(title: String,
-                        message: String,
+    static func confirm(title: String?,
+                        message: String?,
                         handler: @escaping (Bool) -> Void) -> UIAlertController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okBtn = UIAlertAction(title: "OK", style: .default, handler: { _ in handler(true) })
