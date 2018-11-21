@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B930C3F521A61100005A9118 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B930C3F421A61100005A9118 /* Constants.swift */; };
 		B9B59C4621A606B600A61BAE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B59C4521A606B600A61BAE /* AppDelegate.swift */; };
 		B9B59C4821A606B600A61BAE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B59C4721A606B600A61BAE /* ViewController.swift */; };
 		B9B59C4B21A606B600A61BAE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9B59C4921A606B600A61BAE /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B930C3F421A61100005A9118 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B9B59C4221A606B600A61BAE /* vemproiFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vemproiFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B59C4521A606B600A61BAE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9B59C4721A606B600A61BAE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				B9B59C5121A606B700A61BAE /* Info.plist */,
 				B9B59C5721A606D400A61BAE /* DataStruct.swift */,
 				B9B59C5921A607B900A61BAE /* Api.swift */,
+				B930C3F421A61100005A9118 /* Constants.swift */,
 			);
 			path = vemproiFood;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B930C3F521A61100005A9118 /* Constants.swift in Sources */,
 				B9B59C4821A606B600A61BAE /* ViewController.swift in Sources */,
 				B9B59C4621A606B600A61BAE /* AppDelegate.swift in Sources */,
 				B9B59C5A21A607B900A61BAE /* Api.swift in Sources */,
