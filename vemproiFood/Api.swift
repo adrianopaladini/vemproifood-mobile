@@ -11,7 +11,7 @@ import UIKit
 class API {
 
     // LOGIN //
-    func weather(_ location: String, completion: @escaping (weather?) -> Void) {
+    func getWeather(_ location: String, completion: @escaping (weather?) -> Void) {
 
         doApiCall(method: "GET",
                   action: "forecast",
@@ -32,7 +32,7 @@ class API {
 
 extension API {
 
-    func urlWithParams(url: String, params: [String: String]) -> URL {
+    private func urlWithParams(url: String, params: [String: String]) -> URL {
         var urlObj = URLComponents(string: url)!
         urlObj.queryItems = []
         for (key, value) in params {
@@ -43,7 +43,7 @@ extension API {
     }
 
     // REST //
-    func doApiCall(method: String,
+    private func doApiCall(method: String,
                    action: String,
                    params: [String: String],
                    body: Data?,
