@@ -9,17 +9,14 @@
 import UIKit
 
 class API {
-    let domain = "http://api.openweathermap.org/"
-    let pathURI = "data/2.5/"
 
     // LOGIN //
-    func weather(debug: Bool = false,
-               completion: @escaping (weather?) -> Void) {
+    func weather(_ location: String, completion: @escaping (weather?) -> Void) {
 
         doApiCall(method: "GET",
                   action: "forecast",
-                  params: ["q": "Campinas,br", "appid": "a67ef818d8c8e3945f7eee5f541c47e5"],
-                  body: nil, debug: debug) { res in
+                  params: ["q": location, "appid": Constants.openWeatherAppId],
+                  body: nil) { res in
                     if res == nil { completion(nil); return }
                     if let tmp = try? JSONDecoder().decode(weather.self, from: res!) {
                         completion(tmp)
@@ -53,10 +50,7 @@ extension API {
                    debug: Bool = false,
                    completion: @escaping (Data?) -> Void) {
         let pathURI = action.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
-        let url = urlWithParams(url: "\(domain)\(pathURI ?? "")", params: params)
-        if debug {
-            print("############################ START #############################\nURL: \(url.absoluteString)")
-        }
+        let url = urlWithParams(url: "\(Constants.openWeatherDomain)\(pathURI ?? "")", params: params)
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -66,15 +60,7 @@ extension API {
         let session = URLSession.shared
         session.dataTask(with: request) { data, response, err in
             if err == nil {
-                if debug {
-                    let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
-                    print(responseJSON ?? "")
-                    print("############################ END #############################")
-                }
                 if let response = response as? HTTPURLResponse {
-                    if debug {
-                        print("RESPONSE STATUS: \(response.statusCode)")
-                    }
                     switch response.statusCode {
                     case 200..<300:
                         DispatchQueue.main.async { completion(data) }
